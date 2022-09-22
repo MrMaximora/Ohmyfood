@@ -1,0 +1,280 @@
+$breakpoint: (
+    tablet: 992px,
+    desktop: 993px,
+    tabletmin: 769px,
+);
+
+@mixin tablet{
+    @media screen and (min-width : map-get($breakpoint, tabletmin)) and (max-width : map-get($breakpoint, tablet)){
+        @content;
+    } 
+}
+
+@mixin desktop{
+    @media screen and (min-width: map-get($breakpoint, desktop)){
+        @content
+    }
+}
+
+@keyframes slideup{
+     0%{
+        transform: translateY(25px);
+        opacity: 0%;
+     }
+     100%{
+        transform: translateY(0px);
+        opacity: 100%;
+     }
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    font-family:"Roboto";
+}
+
+header{
+    width: 100%;
+    display: flex;
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    z-index: 2;
+    .arrow{
+        position: absolute;
+        left: 3%;
+        color : black;
+        font-size: 25px;
+    }
+    .title{
+        font-family: "Shrikhand";
+        @include tablet{
+            font-size: 40px ;
+        }
+    }
+}
+.img-bg{
+    width: 100%;
+    object-fit: cover;
+    max-height: 500px;
+}
+main{
+    width: 100%;
+    @include desktop{
+        max-width: 1440px;
+        margin: auto;
+    }
+}
+    .restaurant{
+        margin-top: -8%;
+        padding: 3%;
+        position: relative;
+        background-color: whitesmoke;
+        border-top-left-radius: 30px;
+        border-top-right-radius: 30px;
+        display: flex;
+        flex-direction: column;
+        z-index: 1;
+        &__title{
+            display: flex;
+            align-items: center;
+            h2{
+                width: 70%;
+                font-family: "Shrikhand";
+                font-size: xx-large;
+            }
+            &__ico{
+                display: flex;
+                width: 30%;
+                justify-content: flex-end;
+                &-full{
+                    position: relative;
+                    margin-right: 2rem;
+                    z-index: 0;
+                    background-image: linear-gradient( 0deg,#FF79DA,#9356DC );
+                    -webkit-background-clip: text;
+                    background-clip:text;
+                    color:  white;
+                    cursor: pointer;
+                    &:hover{
+                        z-index: 1;
+                        color: transparent;
+                    }
+                }
+                &-empty{
+                    position: relative;
+                    margin-right: -2rem;
+                    z-index: 1;
+                    &:hover{
+                        visibility: hidden;
+                    }
+                }
+            }
+        }
+        &__menu{
+            display: flex;
+            flex-direction: column;
+            row-gap: 25px;
+            width: 100%;
+            @include desktop{
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: space-between;
+            }
+            & :nth-child(4n + 2){
+                animation-delay: 0ms;
+            }
+            & :nth-child(4n + 3){
+                animation-delay: 150ms;
+            }
+            & :nth-child(4n + 4){
+                animation-delay: 300ms;
+            }
+            &:hover{
+                cursor: pointer;
+            }
+            h2{
+                width: 100%;
+                margin: 0;
+                &::after{
+                    display: block;
+                    content: "";
+                    border-bottom: #99e2d0 solid 3px;
+                    width: 55px;
+                }
+            }
+            &__description{
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                height: 100px;
+                background-color: white;
+                border-radius: 20px;
+                box-shadow: 0px 2px 7px lightgrey;
+                overflow: hidden;
+                opacity: 0%;
+                animation: slideup 1000ms forwards;
+                cursor: pointer;
+                @include desktop{
+                    width: 30%;
+                }
+                h4{
+                    margin: 0%;
+                    font-size: large;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    @include tablet{
+                        font-size: x-large;
+                    }
+                }
+                &__name{
+                    flex:70%;
+                    display: flex;
+                    flex-direction: column;
+                    padding-left: 3%;
+                    overflow: hidden;
+                    p{
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                    }
+                }
+                &__price{
+                    font-weight: bold;
+                    padding-top: 25px;
+                    padding-right: 4%;
+                            @include tablet{
+                                font-size: large;
+                            }
+                        }
+                p{
+                margin: 0%;
+                font-size: medium;
+                 @include tablet{
+                font-size: large;
+                    }
+                }
+                &__block{
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 25px;
+                    height: 100%;
+                    background-color: #99E2D0;
+                    color: white;
+                    overflow: hidden;
+                    width: 100px;
+                    margin-right: -100px;
+                    transition: margin 750ms;
+                }
+                &:hover > &__block{
+                     margin: 0%;
+                     .ico{
+                        transform: rotate(360deg);
+                        transition: transform 750ms;
+                     }
+                }
+            }
+        }
+        &__button{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 10%;
+            margin-bottom: 10%;
+            @include desktop{
+                margin-top: 5%;
+                margin-bottom: 5%;
+            }
+            &__command{
+                border: none;
+                cursor: pointer;
+                padding: 15px 60px 15px 60px;
+                color: white;
+                font-size: large;
+                border-radius: 30px;
+                background-image: linear-gradient( 175deg,#FF79DA,#9356DC );
+                box-shadow: 0px 0px 5px grey;
+                &:hover{
+                    box-shadow: 0px 0px 15px grey;
+                    filter: brightness(1.1);
+                }
+                @include tablet{
+                    padding: 20px 70px 20px 70px;
+                    font-size: x-large;
+                }
+            }
+        }
+    }
+footer{
+    display: flex;
+    flex-direction: column;
+    padding: 3% 5% 3% 5%;
+    background-color: rgb(50, 50, 50);
+    color:white;
+    .title-foot{
+        font-family: "Shrikhand";
+        font-size: x-large;
+        margin: 2% 0% 2% 0%;
+        @include tablet{
+            font-size: xx-large;
+        }
+    }
+    .text-ico{
+        display: flex;
+        align-items: center;
+        column-gap: 20px;
+        font-weight: bold;
+        margin-bottom: -20px;
+        @include tablet{
+            font-size: large;
+        }
+    }
+    .contact{
+        margin-top: -5px;
+        text-decoration: none;
+        color: white;
+    }
+}
